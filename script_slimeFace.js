@@ -140,6 +140,7 @@ function drawLowerLip() {
   });
   endShape(CLOSE);
 }
+//adding commit to git
 //lip voice 
 function lipSound(){
   if(drawUpperLip == CENTER_POINTUPPER){
