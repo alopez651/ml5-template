@@ -6,6 +6,8 @@ let slimeImage;
 
 const FOREHEAD_POINT = 168;
 const LIPSTICK_COLOR = "#FFFFFF";
+const CENTER_POINTUPPER = 164;
+const CENTER_POINTLOWER = 18;
 // p5 function
 function preload() {
   slimeImage = loadImage("assets/gu.png");
@@ -47,6 +49,7 @@ function draw() {
   );
 
   let eyeholeMask = createEyeholeMask();
+ lipSound();
 
   let webcamCopy = video.get(); // get a new copy of the webcam image
   webcamCopy.mask(eyeholeMask); // apply the eyehole mask
@@ -112,9 +115,10 @@ function drawUpperLip(){
  lipsUpperOuter.forEach((point) => {
    curveVertex(point[0], point[1]); // using curveVertex for smooth lines
  });
+
  // draw back from right to left along the bottom of the upper lip
  lipsUpperInner.forEach((point) => {
-   curveVertex(point[.5], point[1]);
+   curveVertex(point[0], point[1]);
  });
  endShape(CLOSE); // CLOSE makes sure we join back to the beginning
 }
@@ -131,9 +135,21 @@ function drawLowerLip() {
   lipsLowerOuter.forEach((point) => {
     curveVertex(point[0], point[1]); // using curveVertex for smooth lines
   });
-  
   lipsLowerInner.forEach((point) => {
-    curveVertex(point[0], point[.5]);
+    curveVertex(point[0], point[1]);
   });
   endShape(CLOSE);
+}
+//lip voice 
+function lipSound(){
+  if(drawUpperLip == CENTER_POINTUPPER){
+    var audio= Audio("https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3");
+    audio.play();
+  }
+  else {
+    if(drawLowerLip == CENTER_POINTLOWER){
+      var audio= Audio("https://interactive-examples.mdn.mozilla.net/media/cc0-audio/t-rex-roar.mp3");
+      audio.play();
+  }
+}
 }
